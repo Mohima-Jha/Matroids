@@ -17,3 +17,6 @@ structure RankFun (α : Type _) [DecidableEq α] where
   prop2 : ∀ {A B : Finset Ground}, A ⊆ B → rank A ≤ rank B
   prop3 : ∀ {A B : Finset Ground}, rank (A ∪ B) + rank (A ∩ B) ≤ rank A + rank B
 
+def Dependent {α : Type _} [DecidableEq α] (M : Matroid α) (A : Finset (M.Ground)) : Prop :=
+  ¬ M.Independent A
+
