@@ -24,8 +24,3 @@ def GPath {Vertex : Type} [DecidableEq Vertex] (G : Graph Vertex) : List Vertex 
 def Connected {Vertex : Type}  [DecidableEq Vertex] (G : Graph Vertex) : Prop :=
   ∀ (v₁ v₂ : Vertex), v₁ ∈ G.Vertices → v₂ ∈ G.Vertices → v₁ ≠ v₂ → GPath G [v₁, v₂]
 
-def graphExample : Graph ℕ :=
-{
-  Vertices := [1, 2, 3, 4, 5],
-  Edges := [(1, 2), (2, 3), (3, 4), (4, 5)]
-}
