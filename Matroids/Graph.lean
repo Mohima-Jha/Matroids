@@ -11,16 +11,20 @@ def Loop {Vertex : Type} [DecidableEq Vertex] (G : Graph Vertex) : Prop :=
 def Adjacent {Vertex : Type} [DecidableEq Vertex] (G : Graph Vertex) (V₁ V₂ : Vertex) : Prop :=
   (V₁,V₂) ∈ G.Edges
 
-def GWalk {Vertex : Type} [DecidableEq Vertex] (G : Graph Vertex) : List Vertex → Prop
-| []         => true
-| [_]        => true
-| (x::y::xs) => Adjacent G x y ∧ GWalk G (y::xs)
+inductive Walk {Vertex : Type} [DecidableEq Vertex] (G : Graph Vertex) : Vertex → Vertex → Prop
+| base : ∀ (V : Vertex), Walk G V V
+| step : ∀ {V₁ V₂ V₃ : Vertex}, Walk G V₁ V₂ → Adjacent G V₂ V₃ → Walk G V₁ V₃
 
-def GPath {Vertex : Type} [DecidableEq Vertex] (G : Graph Vertex) : List Vertex → Prop
-| []         => true
-| [_]        => true
-| (x::y::xs) => Adjacent G x y ∧ ¬(x ∈ xs) ∧ GPath G (y::xs)
+inductive GPath {Vertex : Type} [DecidableEq Vertex] (G : Graph Vertex) : Vertex → Vertex → Prop
+| base : ∀ (V : Vertex), GPath G V V
+| step : ∀ {V₁ V₂ V₃ : Vertex}, GPath G V₁ V₂ → Adjacent G V₂ V₃ → GPath G V₁ V₃
 
-def Connected {Vertex : Type}  [DecidableEq Vertex] (G : Graph Vertex) : Prop :=
-  ∀ (v₁ v₂ : Vertex), v₁ ∈ G.Vertices → v₂ ∈ G.Vertices → v₁ ≠ v₂ → GPath G [v₁, v₂]
+def Connected {Vertex : Type} [DecidableEq Vertex] (G : Graph Vertex) : Prop :=
+  ∀ (V₁ V₂ : Vertex), V₁ ∈ G.Vertices → V₂ ∈ G.Vertices → ∃ (P : GPath G V₁ V₂), true
+
+variable (Vertex : Type)
+variable (G : Graph Vertex)
+
+theorem Graphic_Matroid (α : Type _)[DecidableEq α](M : Matroid α): sorry :=
+  sorry 
 
