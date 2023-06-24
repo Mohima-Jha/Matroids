@@ -2,9 +2,11 @@ import Mathlib
 set_option autoImplicit false
 
 --Graph
-structure Graph (Vertex : Type)[DecidableEq Vertex]where 
+structure Graph (Vertex : Type)where 
   Vertices   : List Vertex
   Edges   : List (Vertex × Vertex)
+  IsWalk : Vertex → Vertex → Prop
+  IsPath : Vertex → Vertex → Prop
 
 --Loop
 def Loop {Vertex : Type} [DecidableEq Vertex] (G : Graph Vertex) : Prop :=
