@@ -12,13 +12,13 @@ structure Graph (Vertex : Type _) where
 variable {Vertex : Type _}
 variable (G : Graph Vertex) 
 
---Loop
-def Loop {Vertex : Type} [DecidableEq Vertex] (G : Graph Vertex) : Prop :=
-  ∃ (V : Vertex), V ∈ G.Vertices ∧ (V, V) ∈ G.Edges
-
 --Adjacent
 def Adjacent (V₁ V₂ : Vertex): Prop := 
   (V₁, V₂) ∈ G.Edges
+
+--Neighbour
+def Neighbour {Vertex : Type} [DecidableEq Vertex] (G : Graph Vertex) (V₁ : Vertex) : Set Vertex :=
+  {V : Vertex | G.Adjacent V V₁}
 
 --Walk
 inductive IsWalk : Vertex → Vertex → Type u
