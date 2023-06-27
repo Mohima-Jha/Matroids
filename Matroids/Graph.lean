@@ -6,7 +6,8 @@ structure Graph (Vertex : Type _) where
   Vertices   : List Vertex
   Edges      : List (Vertex × Vertex)
   Adjacent   : Vertex → Vertex → Prop
-  deriving Inhabited
+  Symm       : ∀ (V₁ V₂ : Vertex), (V₁, V₂) ∈ Edges → (V₂, V₁) ∈ Edges
+
 
 variable {Vertex : Type _}
 variable (G : Graph Vertex) 
