@@ -2,11 +2,12 @@ import Mathlib
 set_option autoImplicit false
 
 --Graph
-structure Graph (Vertex : Type _) where 
-  Vertices   : List Vertex
-  Edges      : List (Vertex × Vertex)
-  Adjacent   : Vertex → Vertex → Prop
-  Symm       : ∀ (V₁ V₂ : Vertex), (V₁, V₂) ∈ Edges → (V₂, V₁) ∈ Edges
+structure graph {Vertex : Type _} where
+  Vertices : Finset Vertex   
+  Edges    : Multiset (Vertex × Vertex)  
+  Adjacent : Vertex → Vertex → Prop
+  Symm : Symmetric Adjacent
+
 
 
 variable {Vertex : Type _}
